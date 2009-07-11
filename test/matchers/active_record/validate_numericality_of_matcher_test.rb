@@ -39,6 +39,19 @@ class ValidateNumericalityOfMatcherTest < ActiveSupport::TestCase # :nodoc:
     end
   end
 
+  context "a numeric attribute with integer option" do
+    setup do
+      define_model :example, :attr => :string do
+        validates_numericality_of :attr, :integer => true
+      end
+      @model = Example.new
+    end
+
+    should "allow integer values for that attribute" do
+      assert_accepts validate_numericality_of(:attr).integer(true), @model
+    end
+  end
+  
   context "a non-numeric attribute" do
     setup do
       @model = define_model(:example, :attr => :string).new
@@ -46,6 +59,10 @@ class ValidateNumericalityOfMatcherTest < ActiveSupport::TestCase # :nodoc:
 
     should "not only allow numeric values for that attribute" do
       assert_rejects validate_numericality_of(:attr), @model
+    end
+
+    should "not only allow integer values for that attribute" do
+      assert_rejects validate_numericality_of(:attr).integer(:true), @model
     end
   end
 

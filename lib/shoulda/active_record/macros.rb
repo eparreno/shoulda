@@ -259,7 +259,7 @@ module Shoulda # :nodoc:
       #   should_validate_numericality_of :age
       #
       def should_validate_numericality_of(*attributes)
-        message = get_options!(attributes, :message)
+        message, only_integer = get_options!(attributes, :message, :integer)
         attributes.each do |attribute|
           matcher = validate_numericality_of(attribute).
             with_message(message)

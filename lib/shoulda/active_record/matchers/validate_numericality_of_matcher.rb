@@ -23,6 +23,11 @@ module Shoulda # :nodoc:
           self
         end
 
+        def integer(value)
+          @integer = false
+          self
+        end
+         
         def matches?(subject)
           super(subject)
           @expected_message ||= :not_a_number
